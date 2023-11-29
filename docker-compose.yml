@@ -1,0 +1,40 @@
+version: '3.9'
+
+networks:
+  migration-net:
+    driver: bridge
+
+services:
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - migration-net
+    volumes:
+      - ./src/main/resources/db/liquibase/test-data:/test-data
+
+  liquibase:
+    image: liquibase/liquibase:4.21.0
+    depends_on:
+      - db
+    command: >
+      /bin/bash -c "
+        liquibase --search-path=../liquibase,test-data update --url=\"$$LIQUIBASE_URL?currentSchema=public\" --changelog-file=$$LIQUIBASE_CHANGELOG --username=$$LIQUIBASE_USERNAME --password=$$LIQUIBASE_PASSWORD;
+      "
+    environment:
+      LIQUIBASE_URL: jdbc:postgresql://postgres_db:5432/postgres
+      LIQUIBASE_USERNAME: postgres
+      LIQUIBASE_PASSWORD: postgres
+      LIQUIBASE_CHANGELOG: changelog/changelog.json
+    networks:
+      - migration-net
+    volumes:
+      - ./src/main/resources/db/liquibase/changelog:/liquibase/changelog
+      - ./src/main/resources/db/liquibase/migrations:/liquibase/migrations
+      - ./src/main/resources/db/liquibase/test-data:/liquibase/test-data
