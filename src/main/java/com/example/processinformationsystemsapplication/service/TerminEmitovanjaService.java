@@ -1,10 +1,17 @@
 package com.example.processinformationsystemsapplication.service;
 
+import com.example.processinformationsystemsapplication.entity.Epizoda;
 import com.example.processinformationsystemsapplication.entity.TerminEmitovanja;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.exception.ResourceNotFoundException;
+import com.example.processinformationsystemsapplication.model.TerminEmitovanjaModel;
+import com.example.processinformationsystemsapplication.repository.EpizodaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.processinformationsystemsapplication.repository.TerminEmitovanjaRepository;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,14 +19,43 @@ import java.util.Optional;
 public class TerminEmitovanjaService {
 
     private final TerminEmitovanjaRepository terminEmitovanjaRepository;
+    private final EpizodaRepository epizodaRepository;
 
     @Autowired
-    public TerminEmitovanjaService(TerminEmitovanjaRepository terminEmitovanjaRepository) {
+    public TerminEmitovanjaService(TerminEmitovanjaRepository terminEmitovanjaRepository,
+                                   EpizodaRepository epizodaRepository) {
         this.terminEmitovanjaRepository = terminEmitovanjaRepository;
+        this.epizodaRepository = epizodaRepository;
     }
 
     // Create
-    public TerminEmitovanja createTerminEmitovanja(TerminEmitovanja terminEmitovanja) {
+    public TerminEmitovanja createTerminEmitovanja(TerminEmitovanjaModel terminEmitovanjaModel) {
+        // Check if epizoda exists
+        Optional<Epizoda> epizoda = epizodaRepository.findById(terminEmitovanjaModel.idEpizode());
+        if(epizoda.isEmpty()) {
+            throw new ResourceNotFoundException(String.format("Epizoda za ID: %s ne postoji. " +
+                    "Molimo Vas da najprije kreirate epizodu ili upotrijebite postojecu.", terminEmitovanjaModel.idEpizode()));
+        }
+
+        // Check if termin emitovanja already exists
+        Optional<TerminEmitovanja> existingTerminEmitovanja = terminEmitovanjaRepository.findTerminEmitovanjaByVrijemePocetka(terminEmitovanjaModel.vrijemePocetka());
+        if(existingTerminEmitovanja.isPresent()) {
+            throw new BadRequestException(String.format("Epizoda sa vremenom pocetka %s vec postoji. Molimo Vas da odaberete drugo vrijeme pocetka.", terminEmitovanjaModel.vrijemePocetka()));
+        }
+
+        // Verify if vrijemeZavrsetka is before or equal to vrijemePocetka
+        if(terminEmitovanjaModel.vrijemeZavrsetka().toLocalTime().isBefore(terminEmitovanjaModel.vrijemePocetka().toLocalTime()) ||
+        terminEmitovanjaModel.vrijemePocetka().toLocalTime().equals(terminEmitovanjaModel.vrijemeZavrsetka().toLocalTime())) {
+            throw new BadRequestException("Vrijeme zavrsetka ne moze biti prije vremena pocetka. Molimo Vas da ispravno podesite termine emitovanja.");
+        }
+
+        TerminEmitovanja terminEmitovanja = new TerminEmitovanja(
+                terminEmitovanjaModel.vrijemePocetka(),
+                terminEmitovanjaModel.vrijemeZavrsetka(),
+                terminEmitovanjaModel.datumEmitovanja(),
+                epizoda.get()
+        );
+
         return terminEmitovanjaRepository.save(terminEmitovanja);
     }
 
@@ -29,25 +65,33 @@ public class TerminEmitovanjaService {
     }
 
     // Read by ID
-    public Optional<TerminEmitovanja> getTerminEmitovanjaByEpisodeId(String id) {
-        return terminEmitovanjaRepository.findByEpisodeId(id);
+    public Optional<List<TerminEmitovanja>> getTerminEmitovanjaByIdEpizode(String id) {
+        return terminEmitovanjaRepository.findAllByEpisodeId(id);
     }
 
-    // Update by ID
-    public Optional<TerminEmitovanja> updateTerminEmitovanjaByEpisodeId(String id, TerminEmitovanja updatedTerminEmitovanja) {
-        return terminEmitovanjaRepository.findByEpisodeId(id)
-                .map(existingTermin -> {
-                    existingTermin.setVrijemePocetka(updatedTerminEmitovanja.getVrijemePocetka());
-                    existingTermin.setVrijemeZavrsetka(updatedTerminEmitovanja.getVrijemeZavrsetka());
-                    existingTermin.setDatumEmitovanja(updatedTerminEmitovanja.getDatumEmitovanja());
-                    // Add other fields to update as needed
-                    return terminEmitovanjaRepository.save(existingTermin);
-                });
+    // Update by Episode ID and start time
+    @Transactional
+    public TerminEmitovanja updateTerminEmitovanjaByIdEpizodeAndVrijemePocetka(String id, Time vrijemePocetka, TerminEmitovanja updatedTerminEmitovanja) {
+        // Check if Termin emitovanja exists
+        Optional<TerminEmitovanja> existingTerminEmitovanja = terminEmitovanjaRepository.findByVrijemePocetkaAndIdEpizode(vrijemePocetka, id);
+        if(existingTerminEmitovanja.isEmpty()) {
+            throw new ResourceNotFoundException(String.format("Termin emitovanja za ID: %s i vrijeme pocetka %s ne postoji. " +
+                    "Molimo Vas da najprije kreirate epizodu ili upotrijebite drugi termin.", id, vrijemePocetka));
+        }
+
+        deleteTerminiEmitovanjaByIdEpizodeAndVrijemePocetka(id, vrijemePocetka);
+
+        return createTerminEmitovanja(new TerminEmitovanjaModel(
+                updatedTerminEmitovanja.getVrijemePocetka(),
+                updatedTerminEmitovanja.getVrijemeZavrsetka(),
+                updatedTerminEmitovanja.getDatumEmitovanja(),
+                id));
     }
 
-    // Delete by ID
-    public void deleteTerminEmitovanjaByEpisodeId(String id) {
-        terminEmitovanjaRepository.deleteByEpisodeId(id);
+    // Delete by Episode ID and start time
+    @Transactional
+    public void deleteTerminiEmitovanjaByIdEpizodeAndVrijemePocetka(String idEpizode, Time vrijemePocetka) {
+        terminEmitovanjaRepository.deleteByIdEpizodeAndVrijemePocetka(idEpizode, vrijemePocetka);
     }
 }
 

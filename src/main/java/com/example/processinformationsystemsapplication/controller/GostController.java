@@ -1,6 +1,7 @@
 package com.example.processinformationsystemsapplication.controller;
 
 import com.example.processinformationsystemsapplication.entity.Gost;
+import com.example.processinformationsystemsapplication.model.GostModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class GostController {
 
     // Create
     @PostMapping
-    public ResponseEntity<Gost> createGost(@RequestBody Gost gost) {
+    public ResponseEntity<Gost> createGost(@RequestBody GostModel gost) {
         Gost createdGost = gostService.createGost(gost);
         return new ResponseEntity<>(createdGost, HttpStatus.CREATED);
     }

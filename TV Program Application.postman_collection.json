@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{  \"idEmisije\": \"edc03ad4-93b1-4e1e-8714-3ebd462a8c156\",\n  \"nazivEmisije\": \"Tko zeli biti milijunas\",\n  \"opisEmisije\": \"Popularni kviz.\",\n  \"trajanjeEmisije\": 60,\n  \"ocjenaEmisije\": 10,\n  \"idVrsteEmisije\": \"edc03ad4-93b1-4e1e-8714-3ebd462a8c15\",\n  \"idVoditelja\": \"f43c6dd1-6b8f-4a10-8b4e-89de7bd2f466\",\n  \"idUrednika\": \"c82a4a3f-5aef-49a7-9dab-eb8e1a8b8c5f\",\n  \"idGosta\": \"b808b123-86c3-4db4-8b8a-d0e367ee3ed1\"\n}"
+							"raw": "{  \n  \"nazivEmisije\": \"Tko zeli biti milijunas 2\",\n  \"opisEmisije\": \"Popularni kviz.\",\n  \"trajanjeEmisije\": 60,\n  \"ocjenaEmisije\": 10,\n  \"idVrsteEmisije\": \"edc03ad4-93b1-4e1e-8714-3ebd462a8c15\",\n  \"idVoditelja\": \"f43c6dd1-6b8f-4a10-8b4e-89de7bd2f466\",\n  \"idUrednika\": \"c82a4a3f-5aef-49a7-9dab-eb8e1a8b8c5f\",\n  \"idGosta\": \"b808b123-86c3-4db4-8b8a-d0e367ee3ed1\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/emisije",
@@ -87,10 +87,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nazivEmisije\": \"Updated Emisija\",\n  \"opisEmisije\": \"Updated description\",\n  \"trajanjeEmisije\": 45,\n  \"ocjenaEmisije\": 9\n}"
+							"raw": "{\n  \"nazivEmisije\": \"Reality Show\",\n  \"opisEmisije\": \"Praćenje života učesnika reality showa.\",\n  \"trajanjeEmisije\": 45,\n  \"ocjenaEmisije\": 9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/emisije/{id}",
+							"raw": "http://localhost:8080/api/emisije/a4ef9488-29fe-492a-8b7a-02b07e93859f",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -99,7 +104,7 @@
 							"path": [
 								"api",
 								"emisije",
-								"{id}"
+								"a4ef9488-29fe-492a-8b7a-02b07e93859f"
 							]
 						}
 					},
@@ -111,7 +116,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/emisije/{id}",
+							"raw": "http://localhost:8080/api/emisije/c6cb00ce-cf7c-4017-aabd-f52a62220c8b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -120,7 +125,7 @@
 							"path": [
 								"api",
 								"emisije",
-								"{id}"
+								"c6cb00ce-cf7c-4017-aabd-f52a62220c8b"
 							]
 						}
 					},
@@ -143,7 +148,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idEpizode\": \"randomUUIDV4\",\n  \"nazivEpizode\": \"Sample Epizoda\",\n  \"brojEpizode\": 1,\n  \"brojSezone\": 1,\n  \"opisEpizode\": \"This is a sample epizoda.\",\n  \"idEmisije\": \"your_emisija_id\"\n}"
+							"raw": "{\n  \"nazivEpizode\": \"Inke\",\n  \"brojEpizode\": 1,\n  \"brojSezone\": 1,\n  \"opisEpizode\": \"U ovoj epizodi cemo pricati o kulturi Inka.\",\n  \"idEmisije\": \"2f0dd236-4db7-47cc-a15f-29b45d0ff48e\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/epizode",
@@ -189,7 +194,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/epizode/{id}",
+							"raw": "http://localhost:8080/api/epizode/64b8779f-35c6-4c08-b41d-8f235d8c1a45",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -198,7 +203,7 @@
 							"path": [
 								"api",
 								"epizode",
-								"{id}"
+								"64b8779f-35c6-4c08-b41d-8f235d8c1a45"
 							]
 						}
 					},
@@ -211,10 +216,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nazivEpizode\": \"Updated Epizoda\",\n  \"brojEpizode\": 2,\n  \"brojSezone\": 1,\n  \"opisEpizode\": \"Updated description\"\n}"
+							"raw": "{\n  \"nazivEpizode\": \"Inke. Misticne tajne.\",\n  \"brojEpizode\": 2,\n  \"brojSezone\": 1,\n  \"opisEpizode\": \"Tajne naroda Inki\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/epizode/{id}",
+							"raw": "http://localhost:8080/api/epizode/64b8779f-35c6-4c08-b41d-8f235d8c1a45",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -223,7 +233,7 @@
 							"path": [
 								"api",
 								"epizode",
-								"{id}"
+								"64b8779f-35c6-4c08-b41d-8f235d8c1a45"
 							]
 						}
 					},
@@ -235,7 +245,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/epizode/{id}",
+							"raw": "http://localhost:8080/api/epizode/64b8779f-35c6-4c08-b41d-8f235d8c1a45",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -244,7 +254,7 @@
 							"path": [
 								"api",
 								"epizode",
-								"{id}"
+								"64b8779f-35c6-4c08-b41d-8f235d8c1a45"
 							]
 						}
 					},
@@ -267,7 +277,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"imeGosta\": \"John\",\n  \"prezimeGosta\": \"Doe\",\n  \"biografijaGosta\": \"A short bio about John Doe.\",\n  \"kontaktTelefonGosta\": \"+123456789\",\n  \"idEmisije\": \"your_emisija_id\"\n}"
+							"raw": "{\n  \"imeGosta\": \"Adi\",\n  \"prezimeGosta\": \"Sose\",\n  \"biografijaGosta\": \"Popularni mladi pjevac.\",\n  \"kontaktTelefonGosta\": \"+123456789\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/gosti",
@@ -310,7 +320,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/gosti/{id}",
+							"raw": "http://localhost:8080/api/gosti/4567dd02-440d-4c81-a9ed-c0fc075b1315",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -319,7 +329,7 @@
 							"path": [
 								"api",
 								"gosti",
-								"{id}"
+								"4567dd02-440d-4c81-a9ed-c0fc075b1315"
 							]
 						}
 					},
@@ -332,10 +342,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"imeGosta\": \"Updated John\",\n  \"prezimeGosta\": \"Updated Doe\",\n  \"biografijaGosta\": \"Updated bio\",\n  \"kontaktTelefonGosta\": \"+987654321\"\n}"
+							"raw": "{\n  \"imeGosta\": \"Adi\",\n  \"prezimeGosta\": \"Sosee\",\n  \"biografijaGosta\": \"Updated bio\",\n  \"kontaktTelefonGosta\": \"+987654321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/gosti/{id}",
+							"raw": "http://localhost:8080/api/gosti/4567dd02-440d-4c81-a9ed-c0fc075b1315",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -344,7 +359,7 @@
 							"path": [
 								"api",
 								"gosti",
-								"{id}"
+								"4567dd02-440d-4c81-a9ed-c0fc075b1315"
 							]
 						}
 					},
@@ -356,7 +371,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/gosti/{id}",
+							"raw": "http://localhost:8080/api/gosti/4567dd02-440d-4c81-a9ed-c0fc075b1315",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -365,7 +380,7 @@
 							"path": [
 								"api",
 								"gosti",
-								"{id}"
+								"4567dd02-440d-4c81-a9ed-c0fc075b1315"
 							]
 						}
 					},
@@ -388,7 +403,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"vrijemePocetka\": \"08:00:00\",\n  \"vrijemeZavrsetka\": \"09:00:00\",\n  \"datumEmitovanja\": \"2023-12-01\",\n  \"idEpizode\": \"your_epizoda_id\"\n}"
+							"raw": "{\n  \"vrijemePocetka\": \"06:00:00\",\n  \"vrijemeZavrsetka\": \"05:00:00\",\n  \"datumEmitovanja\": \"2023-12-01\",\n  \"idEpizode\": \"aed64e80-ebc4-4f55-ae4d-84f54fe0e9d3\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/termini-emitovanja",
@@ -426,12 +441,12 @@
 					"response": []
 				},
 				{
-					"name": "Get Termin Emitovanja by ID",
+					"name": "Get Termin Emitovanja by Episode ID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/termini-emitovanja/{id}",
+							"raw": "http://localhost:8080/api/termini-emitovanja/aed64e80-ebc4-4f55-ae4d-84f54fe0e9d3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -440,23 +455,28 @@
 							"path": [
 								"api",
 								"termini-emitovanja",
-								"{id}"
+								"aed64e80-ebc4-4f55-ae4d-84f54fe0e9d3"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Termin Emitovanja by ID",
+					"name": "Update Termin Emitovanja by Episode ID",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"vrijemePocetka\": \"10:00:00\",\n  \"vrijemeZavrsetka\": \"11:00:00\",\n  \"datumEmitovanja\": \"2023-12-02\"\n}"
+							"raw": "{\n  \"vrijemePocetka\": \"19:05:00\",\n  \"vrijemeZavrsetka\": \"20:05:00\",\n  \"datumEmitovanja\": \"2023-12-02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/termini-emitovanja/{id}",
+							"raw": "http://localhost:8080/api/termini-emitovanja?idEpizode=55fe3a1c-bb85-48f7-bdbf-1776019ec705&vrijemePocetka=19:00:00",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -464,20 +484,29 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"termini-emitovanja",
-								"{id}"
+								"termini-emitovanja"
+							],
+							"query": [
+								{
+									"key": "idEpizode",
+									"value": "55fe3a1c-bb85-48f7-bdbf-1776019ec705"
+								},
+								{
+									"key": "vrijemePocetka",
+									"value": "19:00:00"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Termin Emitovanja by ID",
+					"name": "Delete Termin Emitovanja by Episode ID",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/termini-emitovanja/{id}",
+							"raw": "http://localhost:8080/api/termini-emitovanja?idEpizode=aed64e80-ebc4-4f55-ae4d-84f54fe0e9d3&vrijemePocetka=09:00:00",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -485,8 +514,17 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"termini-emitovanja",
-								"{id}"
+								"termini-emitovanja"
+							],
+							"query": [
+								{
+									"key": "idEpizode",
+									"value": "aed64e80-ebc4-4f55-ae4d-84f54fe0e9d3"
+								},
+								{
+									"key": "vrijemePocetka",
+									"value": "09:00:00"
+								}
 							]
 						}
 					},
@@ -509,7 +547,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idUrednika\": \"b30c9e8e-1482-4d52-a67c-cd322f839fae\",\n  \"imeUrednika\": \"John\",\n  \"prezimeUrednika\": \"Doe\",\n  \"kontaktTelefonUrednika\": \"+123456789\"\n}"
+							"raw": "{\n  \"imeUrednika\": \"John 2\",\n  \"prezimeUrednika\": \"Doe\",\n  \"kontaktTelefonUrednika\": \"+123456788\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/urednici",
@@ -552,7 +590,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/urednici/{id}",
+							"raw": "http://localhost:8080/api/urednici/e6705ffb-65cd-45ff-a627-f9518db082f0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -561,7 +599,7 @@
 							"path": [
 								"api",
 								"urednici",
-								"{id}"
+								"e6705ffb-65cd-45ff-a627-f9518db082f0"
 							]
 						}
 					},
@@ -574,10 +612,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"imeUrednika\": \"Updated John\",\n  \"prezimeUrednika\": \"Updated Doe\",\n  \"kontaktTelefonUrednika\": \"+987654321\"\n}"
+							"raw": "{\n  \"imeUrednika\": \"Updated John\",\n  \"prezimeUrednika\": \"Updated Doe\",\n  \"kontaktTelefonUrednika\": \"+987654321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/urednici/{id}",
+							"raw": "http://localhost:8080/api/urednici/e6705ffb-65cd-45ff-a627-f9518db082f0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -586,7 +629,7 @@
 							"path": [
 								"api",
 								"urednici",
-								"{id}"
+								"e6705ffb-65cd-45ff-a627-f9518db082f0"
 							]
 						}
 					},
@@ -598,7 +641,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/urednici/{id}",
+							"raw": "http://localhost:8080/api/urednici/e6705ffb-65cd-45ff-a627-f9518db082f0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -607,7 +650,7 @@
 							"path": [
 								"api",
 								"urednici",
-								"{id}"
+								"e6705ffb-65cd-45ff-a627-f9518db082f0"
 							]
 						}
 					},
@@ -630,7 +673,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idVoditelja\": \"random_uuidv4\",\n  \"imeVoditelja\": \"John\",\n  \"prezimeVoditelja\": \"Doe\",\n  \"kontaktTelefonVoditelja\": \"+123456789\"\n}"
+							"raw": "{\n  \"imeVoditelja\": \"John\",\n  \"prezimeVoditelja\": \"Doe\",\n  \"kontaktTelefonVoditelja\": \"+123456789\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/voditelji",
@@ -673,7 +716,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/voditelji/{id}",
+							"raw": "http://localhost:8080/api/voditelji/9f9c81ae-2a32-45bd-b692-108b9f2f0c1b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -682,7 +725,7 @@
 							"path": [
 								"api",
 								"voditelji",
-								"{id}"
+								"9f9c81ae-2a32-45bd-b692-108b9f2f0c1b"
 							]
 						}
 					},
@@ -695,10 +738,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"imeVoditelja\": \"Updated John\",\n  \"prezimeVoditelja\": \"Updated Doe\",\n  \"kontaktTelefonVoditelja\": \"+987654321\"\n}"
+							"raw": "{\n  \"imeVoditelja\": \"Updated John\",\n  \"prezimeVoditelja\": \"Updated Doe\",\n  \"kontaktTelefonVoditelja\": \"123456788\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/voditelji/{id}",
+							"raw": "http://localhost:8080/api/voditelji/9f9c81ae-2a32-45bd-b692-108b9f2f0c1b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -707,7 +755,7 @@
 							"path": [
 								"api",
 								"voditelji",
-								"{id}"
+								"9f9c81ae-2a32-45bd-b692-108b9f2f0c1b"
 							]
 						}
 					},
@@ -719,7 +767,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/voditelji/{id}",
+							"raw": "http://localhost:8080/api/voditelji/9f9c81ae-2a32-45bd-b692-108b9f2f0c1b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -728,7 +776,7 @@
 							"path": [
 								"api",
 								"voditelji",
-								"{id}"
+								"9f9c81ae-2a32-45bd-b692-108b9f2f0c1b"
 							]
 						}
 					},
@@ -751,7 +799,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idVrsteEmisije\": \"random_uuidv4\",\n  \"nazivVrsteEmisije\": \"Entertainment\"\n}"
+							"raw": "{\n  \"nazivVrsteEmisije\": \"Test\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/vrsta-emisije",
@@ -794,7 +842,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/vrste-emisija/{id}",
+							"raw": "http://localhost:8080/api/vrsta-emisije/43a1870f-4820-4c25-80bf-50595be627f5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -802,8 +850,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"vrste-emisija",
-								"{id}"
+								"vrsta-emisije",
+								"43a1870f-4820-4c25-80bf-50595be627f5"
 							]
 						}
 					},
@@ -816,10 +864,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nazivVrsteEmisije\": \"Updated Entertainment\"\n}"
+							"raw": "{\n  \"nazivVrsteEmisije\": \"Entertainment\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/vrsta-emisije/{id}",
+							"raw": "http://localhost:8080/api/vrsta-emisije/43a1870f-4820-4c25-80bf-50595be627f5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -828,7 +881,7 @@
 							"path": [
 								"api",
 								"vrsta-emisije",
-								"{id}"
+								"43a1870f-4820-4c25-80bf-50595be627f5"
 							]
 						}
 					},

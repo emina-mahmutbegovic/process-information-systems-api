@@ -11,17 +11,29 @@ public class TerminEmitovanja {
 
     @Id
     @Column(name = "vrijeme_pocetka")
-    private java.sql.Time vrijemePocetka;
+    private Time vrijemePocetka;
 
     @Column(name = "vrijeme_zavrsetka", unique = true, nullable = false)
-    private java.sql.Time vrijemeZavrsetka;
+    private Time vrijemeZavrsetka;
 
     @Column(name = "datum_emitovanja", nullable = false)
-    private java.sql.Date datumEmitovanja;
+    private Date datumEmitovanja;
 
     @ManyToOne
     @JoinColumn(name = "id_epizode", nullable = false)
     private Epizoda epizoda;
+
+    public TerminEmitovanja(Time vrijemePocetka,
+                            Time vrijemeZavrsetka,
+                            Date datumEmitovanja,
+                            Epizoda epizoda) {
+        this.vrijemePocetka = vrijemePocetka;
+        this.vrijemeZavrsetka = vrijemeZavrsetka;
+        this.datumEmitovanja = datumEmitovanja;
+        this.epizoda = epizoda;
+    }
+
+    public TerminEmitovanja() {}
 
     public Time getVrijemePocetka() {
         return vrijemePocetka;

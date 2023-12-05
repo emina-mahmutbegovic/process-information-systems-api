@@ -1,6 +1,8 @@
 package com.example.processinformationsystemsapplication.service;
 
 import com.example.processinformationsystemsapplication.entity.Voditelj;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.model.VoditeljModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.processinformationsystemsapplication.repository.VoditeljRepository;
@@ -19,7 +21,28 @@ public class VoditeljService {
     }
 
     // Create
-    public Voditelj createVoditelj(Voditelj voditelj) {
+    public Voditelj createVoditelj(VoditeljModel voditeljModel) {
+        // Check if voditelj with a specified number already exists
+        Optional<Voditelj> existingKontaktTelefon = voditeljRepository.findVoditeljByKontaktTelefonVoditelja(voditeljModel.kontaktTelefonVoditelja());
+
+        if(existingKontaktTelefon.isPresent()) {
+            throw new BadRequestException(String.format("Voditelj sa brojem %s vec postoji.", voditeljModel.kontaktTelefonVoditelja()));
+        }
+
+        // Check if voditelj already exists
+        Optional<Voditelj> existingVoditelj = voditeljRepository.findVoditeljByImeVoditeljaAndPrezimeVoditeljaAndKontaktTelefonVoditelja(
+                voditeljModel.imeVoditelja(),
+                voditeljModel.prezimeVoditelja(),
+                voditeljModel.kontaktTelefonVoditelja());
+
+        if(existingVoditelj.isPresent()) {
+            throw new BadRequestException(String.format("Voditelj %s %s vec postoji.", voditeljModel.imeVoditelja(), voditeljModel.prezimeVoditelja()));
+        }
+
+        Voditelj voditelj = new Voditelj(voditeljModel.imeVoditelja(),
+                voditeljModel.prezimeVoditelja(),
+                voditeljModel.kontaktTelefonVoditelja());
+
         return voditeljRepository.save(voditelj);
     }
 

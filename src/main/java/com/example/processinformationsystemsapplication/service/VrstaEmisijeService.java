@@ -1,6 +1,8 @@
 package com.example.processinformationsystemsapplication.service;
 
 import com.example.processinformationsystemsapplication.entity.VrstaEmisije;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.model.VrstaEmisijeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.processinformationsystemsapplication.repository.VrstaEmisijeRepository;
@@ -19,7 +21,15 @@ public class VrstaEmisijeService {
     }
 
     // Create
-    public VrstaEmisije createVrstaEmisije(VrstaEmisije vrstaEmisije) {
+    public VrstaEmisije createVrstaEmisije(VrstaEmisijeModel vrstaEmisijeModel) {
+        // Check if vrsta emisije already exists
+        Optional<VrstaEmisije> existingVrstaEmisije = vrstaEmisijeRepository.findVrstaEmisijeByNazivVrsteEmisije(vrstaEmisijeModel.nazivVrsteEmisije());
+        if(existingVrstaEmisije.isPresent()) {
+            throw new BadRequestException(String.format("Vrsta emisije %s vec postoji. Molimo Vas da odaberete drugi naziv vrste emisije.", vrstaEmisijeModel.nazivVrsteEmisije()));
+        }
+
+        VrstaEmisije vrstaEmisije = new VrstaEmisije(vrstaEmisijeModel.nazivVrsteEmisije());
+
         return vrstaEmisijeRepository.save(vrstaEmisije);
     }
 

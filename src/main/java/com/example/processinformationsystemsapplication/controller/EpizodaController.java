@@ -1,6 +1,7 @@
 package com.example.processinformationsystemsapplication.controller;
 
 import com.example.processinformationsystemsapplication.entity.Epizoda;
+import com.example.processinformationsystemsapplication.model.EpizodaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class EpizodaController {
 
     // Create
     @PostMapping
-    public ResponseEntity<Epizoda> createEpizoda(@RequestBody Epizoda epizoda) {
+    public ResponseEntity<Epizoda> createEpizoda(@RequestBody EpizodaModel epizoda) {
         Epizoda createdEpizoda = epizodaService.createEpizoda(epizoda);
         return new ResponseEntity<>(createdEpizoda, HttpStatus.CREATED);
     }

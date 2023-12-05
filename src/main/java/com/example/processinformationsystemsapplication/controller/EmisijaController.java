@@ -1,6 +1,9 @@
 package com.example.processinformationsystemsapplication.controller;
 
 import com.example.processinformationsystemsapplication.entity.Emisija;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.exception.ResourceNotFoundException;
+import com.example.processinformationsystemsapplication.model.EmisijaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +25,7 @@ public class EmisijaController {
 
     // Create
     @PostMapping
-    public ResponseEntity<Emisija> createEmisija(@RequestBody Emisija emisija) {
+    public ResponseEntity<Emisija> createEmisija(@RequestBody EmisijaModel emisija) throws BadRequestException, ResourceNotFoundException {
         Emisija createdEmisija = emisijaService.createEmisija(emisija);
         return new ResponseEntity<>(createdEmisija, HttpStatus.CREATED);
     }

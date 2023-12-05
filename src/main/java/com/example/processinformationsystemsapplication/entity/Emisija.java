@@ -2,6 +2,8 @@ package com.example.processinformationsystemsapplication.entity;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "emisija")
 public class Emisija {
@@ -38,8 +40,33 @@ public class Emisija {
     @JoinColumn(name = "id_gosta")
     private Gost gost;
 
+    public Emisija(String nazivEmisije,
+                   String opisEmisije,
+                   int trajanjeEmisije,
+                   int ocjenaEmisije,
+                   VrstaEmisije vrstaEmisije,
+                   Voditelj voditelj,
+                   Urednik urednik,
+                   Gost gost){
+        this.idEmisije = String.valueOf(UUID.randomUUID());
+        this.nazivEmisije = nazivEmisije;
+        this.opisEmisije = opisEmisije;
+        this.trajanjeEmisije = trajanjeEmisije;
+        this.ocjenaEmisije = ocjenaEmisije;
+        this.vrstaEmisije = vrstaEmisije;
+        this.voditelj = voditelj;
+        this.urednik = urednik;
+        this.gost = gost;
+    }
+
+    public Emisija() {}
+
     public String getIdEmisije() {
         return idEmisije;
+    }
+
+    public void setIdEmisije(String idEmisije) {
+        this.idEmisije = idEmisije;
     }
 
     public String getNazivEmisije() {

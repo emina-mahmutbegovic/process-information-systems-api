@@ -1,6 +1,11 @@
 package com.example.processinformationsystemsapplication.service;
 
+import com.example.processinformationsystemsapplication.entity.Emisija;
 import com.example.processinformationsystemsapplication.entity.Epizoda;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.exception.ResourceNotFoundException;
+import com.example.processinformationsystemsapplication.model.EpizodaModel;
+import com.example.processinformationsystemsapplication.repository.EmisijaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.processinformationsystemsapplication.repository.EpizodaRepository;
@@ -12,14 +17,40 @@ import java.util.Optional;
 public class EpizodaService {
 
     private final EpizodaRepository epizodaRepository;
+    private final EmisijaRepository emisijaRepository;
 
     @Autowired
-    public EpizodaService(EpizodaRepository epizodaRepository) {
+    public EpizodaService(EpizodaRepository epizodaRepository,
+                          EmisijaRepository emisijaRepository) {
         this.epizodaRepository = epizodaRepository;
+        this.emisijaRepository = emisijaRepository;
     }
 
     // Create
-    public Epizoda createEpizoda(Epizoda epizoda) {
+    public Epizoda createEpizoda(EpizodaModel epizodaModel) {
+        // Check if emisija exists
+        Optional<Emisija> emisija = emisijaRepository.findById(epizodaModel.idEmisije());
+        if(emisija.isEmpty()) {
+            throw new ResourceNotFoundException(String.format("Emisija za ID: %s ne postoji. " +
+                    "Molimo Vas da najprije kreirate emisiju ili upotrijebite postojecu.", epizodaModel.idEmisije()));
+        }
+
+        // Check if episode and season for a show exist
+        Optional<Epizoda> existingEpizoda = epizodaRepository.findEpizodaByIdEmisijeAndBrojEpizodeAndBrojSezone(
+                epizodaModel.idEmisije(),
+                epizodaModel.brojEpizode(),
+                epizodaModel.brojSezone());
+        if(existingEpizoda.isPresent()) {
+            throw new BadRequestException(String.format("Epizoda za ID %s, broj sezone %d i broj epizode %d vec postoji. " +
+                    "Molimo Vas da odaberete drugu emisiju, epizodu ili sezonu.", epizodaModel.idEmisije(), epizodaModel.brojEpizode(), epizodaModel.brojSezone()));
+        }
+
+        Epizoda epizoda = new Epizoda(epizodaModel.nazivEpizode(),
+                epizodaModel.brojEpizode(),
+                epizodaModel.brojSezone(),
+                epizodaModel.opisEpizode(),
+                emisija.get());
+
         return epizodaRepository.save(epizoda);
     }
 

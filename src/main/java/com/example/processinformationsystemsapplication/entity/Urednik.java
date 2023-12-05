@@ -2,6 +2,8 @@ package com.example.processinformationsystemsapplication.entity;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "urednik", uniqueConstraints = {
         @UniqueConstraint(name = "jedinstven_ime_prezime_telefon_urednik_set",
@@ -21,6 +23,17 @@ public class Urednik {
 
     @Column(name = "kontakt_telefon_urednika", length = 50, unique = true, nullable = false)
     private String kontaktTelefonUrednika;
+
+    public Urednik(String imeUrednika,
+                String prezimeUrednika,
+                String kontaktTelefonUrednika) {
+        this.idUrednika = String.valueOf(UUID.randomUUID());
+        this.imeUrednika = imeUrednika;
+        this.prezimeUrednika = prezimeUrednika;
+        this.kontaktTelefonUrednika = kontaktTelefonUrednika;
+    }
+
+    public Urednik() {}
 
     public String getIdUrednika() {
         return idUrednika;

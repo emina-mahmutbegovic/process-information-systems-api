@@ -2,6 +2,8 @@ package com.example.processinformationsystemsapplication.entity;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "epizoda")
 public class Epizoda {
@@ -25,6 +27,21 @@ public class Epizoda {
     @ManyToOne
     @JoinColumn(name = "id_emisije", nullable = false)
     private Emisija emisija;
+
+    public Epizoda(String nazivEpizode,
+                   int brojEpizode,
+                   int brojSezone,
+                   String opisEpizode,
+                   Emisija emisija){
+        this.idEpizode = String.valueOf(UUID.randomUUID());
+        this.nazivEpizode = nazivEpizode;
+        this.brojEpizode = brojEpizode;
+        this.brojSezone = brojSezone;
+        this.opisEpizode = opisEpizode;
+        this.emisija = emisija;
+    }
+
+    public Epizoda() {}
 
     public String getIdEpizode() {
         return idEpizode;

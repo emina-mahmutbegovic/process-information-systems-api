@@ -1,6 +1,8 @@
 package com.example.processinformationsystemsapplication.service;
 
 import com.example.processinformationsystemsapplication.entity.Urednik;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.model.UrednikModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.processinformationsystemsapplication.repository.UrednikRepository;
@@ -19,7 +21,28 @@ public class UrednikService {
     }
 
     // Create
-    public Urednik createUrednik(Urednik urednik) {
+    public Urednik createUrednik(UrednikModel urednikModel) {
+        // Check if urednik with a specified number already exists
+        Optional<Urednik> existingKontaktTelefon = urednikRepository.findUrednikByKontaktTelefonUrednika(urednikModel.kontaktTelefonUrednika());
+
+        if(existingKontaktTelefon.isPresent()) {
+            throw new BadRequestException(String.format("Urednik sa brojem %s vec postoji.", urednikModel.kontaktTelefonUrednika()));
+        }
+
+        // Check if urednik already exists
+        Optional<Urednik> existingUrednik = urednikRepository.findUrednikByImeUrednikaAndPrezimeUrednikaAndKontaktTelefonUrednika(
+                urednikModel.imeUrednika(),
+                urednikModel.prezimeUrednika(),
+                urednikModel.kontaktTelefonUrednika());
+
+        if(existingUrednik.isPresent()) {
+            throw new BadRequestException(String.format("Urednik %s %s vec postoji.", urednikModel.imeUrednika(), urednikModel.prezimeUrednika()));
+        }
+
+        Urednik urednik = new Urednik(urednikModel.imeUrednika(),
+                urednikModel.prezimeUrednika(),
+                urednikModel.kontaktTelefonUrednika());
+
         return urednikRepository.save(urednik);
     }
 

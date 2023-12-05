@@ -1,6 +1,8 @@
 package com.example.processinformationsystemsapplication.service;
 
 import com.example.processinformationsystemsapplication.entity.Gost;
+import com.example.processinformationsystemsapplication.exception.BadRequestException;
+import com.example.processinformationsystemsapplication.model.GostModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.processinformationsystemsapplication.repository.GostRepository;
@@ -19,7 +21,29 @@ public class GostService {
     }
 
     // Create
-    public Gost createGost(Gost gost) {
+    public Gost createGost(GostModel gostModel) {
+        // Check if gost with a specified number already exists
+        Optional<Gost> existingKontaktTelefon = gostRepository.findGostByKontaktTelefonGosta(gostModel.kontaktTelefonGosta());
+
+        if(existingKontaktTelefon.isPresent()) {
+            throw new BadRequestException(String.format("Gost sa brojem %s vec postoji.", gostModel.kontaktTelefonGosta()));
+        }
+
+        // Check if gost already exists
+        Optional<Gost> existingGost = gostRepository.findByImeGostaAndPrezimeGostaAndKontaktTelefonGosta(
+                gostModel.imeGosta(),
+                gostModel.prezimeGosta(),
+                gostModel.kontaktTelefonGosta());
+
+        if(existingGost.isPresent()) {
+            throw new BadRequestException(String.format("Gost %s %s vec postoji.", gostModel.imeGosta(), gostModel.prezimeGosta()));
+        }
+
+        Gost gost = new Gost(gostModel.imeGosta(),
+                            gostModel.prezimeGosta(),
+                            gostModel.biografijaGosta(),
+                            gostModel.kontaktTelefonGosta());
+
         return gostRepository.save(gost);
     }
 
