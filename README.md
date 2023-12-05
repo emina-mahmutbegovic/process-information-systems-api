@@ -204,7 +204,7 @@ The application will be accessible at `http://localhost:8080`.
 - **Spring Boot**
 - **Java**
 - **Spring Data JPA**
-- **PostgreSQL (or your preferred database)**
+- **PostgreSQL**
 - **Liquibase**
 - **Docker**
 
