@@ -18,6 +18,12 @@ public class Voditelj {
     @Column(name = "ime_voditelja", length = 50, nullable = false)
     private String imeVoditelja;
 
+    @Column(name = "prezime_voditelja", length = 50, nullable = false)
+    private String prezimeVoditelja;
+
+    @Column(name = "kontakt_telefon_voditelja", length = 50, unique = true, nullable = false)
+    private String kontaktTelefonVoditelja;
+
     public Voditelj(String imeVoditelja,
                    String prezimeVoditelja,
                    String kontaktTelefonVoditelja) {
@@ -56,11 +62,5 @@ public class Voditelj {
     public void setKontaktTelefonVoditelja(String kontaktTelefonVoditelja) {
         this.kontaktTelefonVoditelja = kontaktTelefonVoditelja;
     }
-
-    @Column(name = "prezime_voditelja", length = 50, nullable = false)
-    private String prezimeVoditelja;
-
-    @Column(name = "kontakt_telefon_voditelja", length = 50, unique = true, nullable = false)
-    private String kontaktTelefonVoditelja;
 }
 

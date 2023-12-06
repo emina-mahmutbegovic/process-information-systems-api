@@ -25,7 +25,7 @@ public class EmisijaController {
 
     // Create
     @PostMapping
-    public ResponseEntity<Emisija> createEmisija(@RequestBody EmisijaModel emisija) throws BadRequestException, ResourceNotFoundException {
+    public ResponseEntity<Emisija> createEmisija(@RequestBody EmisijaModel emisija) {
         Emisija createdEmisija = emisijaService.createEmisija(emisija);
         return new ResponseEntity<>(createdEmisija, HttpStatus.CREATED);
     }
