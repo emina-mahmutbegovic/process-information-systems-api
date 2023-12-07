@@ -55,8 +55,9 @@ public class EpizodaService {
     }
 
     // Read All
-    public List<Epizoda> getAllEpizode() {
-        return epizodaRepository.findAll();
+    public Optional<List<Epizoda>> getAllEpizode(String idEmisije) {
+        if(idEmisije.isEmpty()) return Optional.of(epizodaRepository.findAll());
+        else return epizodaRepository.findAllByIdEmisije(idEmisije);
     }
 
     // Read by ID

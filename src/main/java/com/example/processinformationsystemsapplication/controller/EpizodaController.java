@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.processinformationsystemsapplication.service.EpizodaService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/epizode")
@@ -30,8 +31,8 @@ public class EpizodaController {
 
     // Read All
     @GetMapping
-    public ResponseEntity<List<Epizoda>> getAllEpizode() {
-        List<Epizoda> epizode = epizodaService.getAllEpizode();
+    public ResponseEntity<Optional<List<Epizoda>>> getAllEpizode(@RequestParam (name = "idEmisije") String idEmisije) {
+        Optional<List<Epizoda>> epizode = epizodaService.getAllEpizode(idEmisije);
         return new ResponseEntity<>(epizode, HttpStatus.OK);
     }
 
