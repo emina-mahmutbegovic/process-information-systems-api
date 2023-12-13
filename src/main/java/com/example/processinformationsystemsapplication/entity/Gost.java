@@ -2,6 +2,8 @@ package com.example.processinformationsystemsapplication.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +28,9 @@ public class Gost {
 
     @Column(name = "kontakt_telefon_gosta", length = 50, unique = true, nullable = false)
     private String kontaktTelefonGosta;
+
+    @ManyToMany(mappedBy = "gosti")
+    private Set<Emisija> emisije = new HashSet<>();
 
     public Gost(String imeGosta,
          String prezimeGosta,

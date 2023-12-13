@@ -2,6 +2,8 @@ package com.example.processinformationsystemsapplication.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -36,9 +38,13 @@ public class Emisija {
     @JoinColumn(name = "id_urednika", nullable = false)
     private Urednik urednik;
 
-    @ManyToOne
-    @JoinColumn(name = "id_gosta")
-    private Gost gost;
+    @ManyToMany
+    @JoinTable(
+            name = "gostuje",  // The name of the join table
+            joinColumns = @JoinColumn(name = "id_emisije"),  // The columns in the join table mapped to Emisija's primary key
+            inverseJoinColumns = @JoinColumn(name = "id_gosta")  // The columns in the join table mapped to Gost's primary key
+    )
+    private Set<Gost> gosti = new HashSet<>();
 
     public Emisija(String nazivEmisije,
                    String opisEmisije,
@@ -47,7 +53,7 @@ public class Emisija {
                    VrstaEmisije vrstaEmisije,
                    Voditelj voditelj,
                    Urednik urednik,
-                   Gost gost){
+                   Set<Gost> gosti){
         this.idEmisije = String.valueOf(UUID.randomUUID());
         this.nazivEmisije = nazivEmisije;
         this.opisEmisije = opisEmisije;
@@ -56,7 +62,7 @@ public class Emisija {
         this.vrstaEmisije = vrstaEmisije;
         this.voditelj = voditelj;
         this.urednik = urednik;
-        this.gost = gost;
+        this.gosti = gosti;
     }
 
     public Emisija() {}
@@ -125,12 +131,12 @@ public class Emisija {
         this.urednik = urednik;
     }
 
-    public Gost getGost() {
-        return gost;
+    public Set<Gost> getGosti() {
+        return gosti;
     }
 
-    public void setGost(Gost gost) {
-        this.gost = gost;
+    public void setGosti(Set<Gost> gosti) {
+        this.gosti = gosti;
     }
 }
 

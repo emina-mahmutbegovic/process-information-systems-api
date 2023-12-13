@@ -22,7 +22,7 @@ services:
   liquibase:
     image: liquibase/liquibase:4.21.0
     depends_on:
-      - db
+      - postgres_db
     command: >
       /bin/bash -c "
         liquibase --search-path=../liquibase,test-data update --url=\"$$LIQUIBASE_URL?currentSchema=public\" --changelog-file=$$LIQUIBASE_CHANGELOG --username=$$LIQUIBASE_USERNAME --password=$$LIQUIBASE_PASSWORD;

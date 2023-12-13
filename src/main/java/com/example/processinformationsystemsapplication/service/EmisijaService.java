@@ -6,11 +6,13 @@ import com.example.processinformationsystemsapplication.exception.ResourceNotFou
 import com.example.processinformationsystemsapplication.model.EmisijaModel;
 import com.example.processinformationsystemsapplication.repository.*;
 
+import com.example.processinformationsystemsapplication.repository.VoditeljRepository;
+import com.example.processinformationsystemsapplication.repository.VrstaEmisijeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EmisijaService {
@@ -35,7 +37,8 @@ public class EmisijaService {
     }
 
     // Create
-    public Emisija createEmisija(EmisijaModel emisijaModel) throws BadRequestException, ResourceNotFoundException {
+    @Transactional
+    public Emisija createEmisija(EmisijaModel emisijaModel) {
         // Check if emisija already exists
         Optional<Emisija> existingEmisija = emisijaRepository.findEmisijaByNazivEmisije(emisijaModel.nazivEmisije());
         if(existingEmisija.isPresent()) {
@@ -61,22 +64,22 @@ public class EmisijaService {
                     "Molimo Vas da najprije kreirate urednika ili upotrijebite postojeceg urednika.", emisijaModel.idUrednika()));
         }
 
-        Optional<Gost> gost = gostRepository.findById(emisijaModel.idGosta());
-        if(gost.isEmpty()) {
-            throw new ResourceNotFoundException(String.format("Gost za ID: %s ne postoji. " +
-                    "Molimo Vas da najprije kreirate gosta ili upotrijebite postojeceg gosta.", emisijaModel.idGosta()));
+        List<Gost> gosti = gostRepository.findAllById(emisijaModel.idGostiju());
+        if(gosti.isEmpty()) {
+            String formattedIds = String.join(", ", emisijaModel.idGostiju());
+            throw new ResourceNotFoundException(String.format("Gosti za ID: %s ne postoje. " +
+                    "Molimo Vas da najprije kreirate goste ili upotrijebite postojeceg goste.", formattedIds));
         }
 
-        Emisija emisija = new Emisija(emisijaModel.nazivEmisije(),
-                                    emisijaModel.opisEmisije(),
-                                    emisijaModel.trajanjeEmisije(),
-                                    emisijaModel.ocjenaEmisije(),
-                                    vrstaEmisije.get(),
-                                    voditelj.get(),
-                                    urednik.get(),
-                                    gost.get());
-
-        return emisijaRepository.save(emisija);
+        return emisijaRepository.save(new Emisija(
+                emisijaModel.nazivEmisije(),
+                emisijaModel.opisEmisije(),
+                emisijaModel.trajanjeEmisije(),
+                emisijaModel.ocjenaEmisije(),
+                vrstaEmisije.get(),
+                voditelj.get(),
+                urednik.get(),
+                new HashSet<>(gosti)));
     }
 
     // Read All
@@ -97,6 +100,7 @@ public class EmisijaService {
                     existingEmisija.setOpisEmisije(updatedEmisija.getOpisEmisije());
                     existingEmisija.setTrajanjeEmisije(updatedEmisija.getTrajanjeEmisije());
                     existingEmisija.setOcjenaEmisije(updatedEmisija.getOcjenaEmisije());
+                    existingEmisija.setGosti(updatedEmisija.getGosti());
                     // Add other fields to update as needed
                     return emisijaRepository.save(existingEmisija);
                 });

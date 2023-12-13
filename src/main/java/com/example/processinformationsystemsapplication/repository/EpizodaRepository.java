@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EpizodaRepository extends JpaRepository<Epizoda, String> {
+    Optional<Epizoda> findEpizodaByNazivEpizode(String nazivEpizode);
     @Query("SELECT ep FROM Epizoda ep WHERE ep.emisija.idEmisije = :idEmisije AND ep.brojEpizode = :brojEpizode AND ep.brojSezone = :brojSezone")
     Optional<Epizoda> findEpizodaByIdEmisijeAndBrojEpizodeAndBrojSezone(@Param("idEmisije") String idEmisije,
                                                                         @Param("brojEpizode") int brojEpizode,

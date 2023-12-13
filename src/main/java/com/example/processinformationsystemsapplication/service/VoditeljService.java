@@ -3,9 +3,9 @@ package com.example.processinformationsystemsapplication.service;
 import com.example.processinformationsystemsapplication.entity.Voditelj;
 import com.example.processinformationsystemsapplication.exception.BadRequestException;
 import com.example.processinformationsystemsapplication.model.VoditeljModel;
+import com.example.processinformationsystemsapplication.repository.VoditeljRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.processinformationsystemsapplication.repository.VoditeljRepository;
 
 import java.util.List;
 import java.util.Optional;

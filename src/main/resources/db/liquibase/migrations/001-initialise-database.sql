@@ -34,12 +34,12 @@ CREATE TABLE voditelj
 -- Create 'Gost' Table
 CREATE TABLE gost
 (
-    id_gosta              CHAR(36) PRIMARY KEY,
+    id_gosta              CHAR(36) PRIMARY KEY ,
     ime_gosta             VARCHAR(50)  NOT NULL,
     prezime_gosta         VARCHAR(50)  NOT NULL,
     biografija_gosta      VARCHAR(500) NOT NULL,
     kontakt_telefon_gosta VARCHAR(50) UNIQUE NOT NULL,
-    CONSTRAINT jedinstven_ime_prezime_telefon_gost_set
+     CONSTRAINT jedinstven_ime_prezime_telefon_gost_set
         UNIQUE (ime_gosta, prezime_gosta, kontakt_telefon_gosta)
 );
 
@@ -54,11 +54,19 @@ CREATE TABLE emisija
     id_vrste_emisije CHAR(36) NOT NULL,
     id_voditelja     CHAR(36) NOT NULL,
     id_urednika      CHAR(36) NOT NULL,
-    id_gosta         CHAR(36),
     FOREIGN KEY (id_vrste_emisije) REFERENCES vrsta_emisije (id_vrste_emisije),
     FOREIGN KEY (id_voditelja) REFERENCES voditelj (id_voditelja),
-    FOREIGN KEY (id_urednika) REFERENCES urednik (id_urednika),
-    FOREIGN KEY (id_gosta) REFERENCES gost (id_gosta)
+    FOREIGN KEY (id_urednika) REFERENCES urednik (id_urednika)
+);
+
+-- Create 'Gostuje' Table
+CREATE TABLE gostuje
+(
+    id_gosta              CHAR(36) NOT NULL,
+    id_emisije             CHAR(36) NOT NULL,
+    PRIMARY KEY (id_gosta, id_emisije),
+    FOREIGN KEY (id_emisije) REFERENCES emisija(id_emisije),
+    FOREIGN KEY (id_gosta) REFERENCES gost(id_gosta)
 );
 
 -- Create 'Epizoda' Table
@@ -69,7 +77,7 @@ CREATE TABLE epizoda
     broj_epizode  INT         NOT NULL,
     broj_sezone   INT         NOT NULL,
     opis_epizode  VARCHAR(500),
-    id_emisije VARCHAR(36) NOT NULL,
+    id_emisije CHAR(36) NOT NULL,
     FOREIGN KEY (id_emisije) REFERENCES emisija(id_emisije) ON DELETE CASCADE
 );
 
@@ -79,7 +87,7 @@ CREATE TABLE termin_emitovanja
     vrijeme_pocetka       TIME(0) UNIQUE NOT NULL,
     vrijeme_zavrsetka     TIME(0) UNIQUE NOT NULL,
     datum_emitovanja      DATE           NOT NULL,
-    id_epizode VARCHAR(36) NOT NULL,
+    id_epizode CHAR(36) NOT NULL,
     FOREIGN KEY (id_epizode) REFERENCES epizoda(id_epizode) ON DELETE CASCADE,
-    PRIMARY KEY (vrijeme_pocetka, id_epizode)
+    PRIMARY KEY (datum_emitovanja, vrijeme_pocetka, id_epizode)
 );

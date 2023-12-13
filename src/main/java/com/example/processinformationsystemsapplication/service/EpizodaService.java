@@ -28,6 +28,13 @@ public class EpizodaService {
 
     // Create
     public Epizoda createEpizoda(EpizodaModel epizodaModel) {
+        // Check if episode and season for a show exist
+        Optional<Epizoda> existingEpizodaByName = epizodaRepository.findEpizodaByNazivEpizode(epizodaModel.nazivEpizode());
+        if(existingEpizodaByName.isPresent()) {
+            throw new BadRequestException(String.format("Epizoda za naziv %s vec postoji. " +
+                    "Molimo Vas da odaberete drugi naziv.", epizodaModel.nazivEpizode()));
+        }
+
         // Check if emisija exists
         Optional<Emisija> emisija = emisijaRepository.findById(epizodaModel.idEmisije());
         if(emisija.isEmpty()) {

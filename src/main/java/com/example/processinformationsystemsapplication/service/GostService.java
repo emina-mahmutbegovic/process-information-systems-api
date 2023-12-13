@@ -9,6 +9,7 @@ import com.example.processinformationsystemsapplication.repository.GostRepositor
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class GostService {
@@ -48,8 +49,10 @@ public class GostService {
     }
 
     // Read All
-    public List<Gost> getAllGosti() {
-        return gostRepository.findAll();
+    public List<Gost> getAllGosti(Set<String> idGostiju) {
+        if(idGostiju.isEmpty()) return gostRepository.findAll();
+        else return gostRepository.findAllByIdGostaIn(idGostiju);
+
     }
 
     // Read by ID

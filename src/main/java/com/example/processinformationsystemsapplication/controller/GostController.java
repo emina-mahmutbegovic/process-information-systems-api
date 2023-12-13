@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.processinformationsystemsapplication.service.GostService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/gosti")
@@ -30,8 +31,8 @@ public class GostController {
 
     // Read All
     @GetMapping
-    public ResponseEntity<List<Gost>> getAllGosti() {
-        List<Gost> gosti = gostService.getAllGosti();
+    public ResponseEntity<List<Gost>> getAllGosti(@RequestParam(name = "idGostiju") Set<String> idGostiju) {
+        List<Gost> gosti = gostService.getAllGosti(idGostiju);
         return new ResponseEntity<>(gosti, HttpStatus.OK);
     }
 
