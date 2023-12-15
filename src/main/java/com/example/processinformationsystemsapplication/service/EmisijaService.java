@@ -64,13 +64,6 @@ public class EmisijaService {
                     "Molimo Vas da najprije kreirate urednika ili upotrijebite postojeceg urednika.", emisijaModel.idUrednika()));
         }
 
-        List<Gost> gosti = gostRepository.findAllById(emisijaModel.idGostiju());
-        if(gosti.isEmpty()) {
-            String formattedIds = String.join(", ", emisijaModel.idGostiju());
-            throw new ResourceNotFoundException(String.format("Gosti za ID: %s ne postoje. " +
-                    "Molimo Vas da najprije kreirate goste ili upotrijebite postojeceg goste.", formattedIds));
-        }
-
         return emisijaRepository.save(new Emisija(
                 emisijaModel.nazivEmisije(),
                 emisijaModel.opisEmisije(),
@@ -79,7 +72,7 @@ public class EmisijaService {
                 vrstaEmisije.get(),
                 voditelj.get(),
                 urednik.get(),
-                new HashSet<>(gosti)));
+                new HashSet<>()));
     }
 
     // Read All
