@@ -28,9 +28,9 @@ services:
         liquibase --search-path=../liquibase,test-data update --url=\"$$LIQUIBASE_URL?currentSchema=public\" --changelog-file=$$LIQUIBASE_CHANGELOG --username=$$LIQUIBASE_USERNAME --password=$$LIQUIBASE_PASSWORD;
       "
     environment:
-      LIQUIBASE_URL: jdbc:postgresql://postgres_db:5432/postgres
-      LIQUIBASE_USERNAME: postgres
-      LIQUIBASE_PASSWORD: postgres
+      LIQUIBASE_URL: jdbc:postgresql://34.70.142.62:5432/postgres
+      LIQUIBASE_USERNAME: postgres-develop
+      LIQUIBASE_PASSWORD: ~a@vZpu`=lZfzpSO
       LIQUIBASE_CHANGELOG: changelog/changelog.json
     networks:
       - migration-net
