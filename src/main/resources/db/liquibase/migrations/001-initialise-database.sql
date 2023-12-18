@@ -93,8 +93,8 @@ CREATE UNIQUE INDEX unique_naziv_epizode_column_index ON epizoda (naziv_epizode)
 -- Create 'Termin' Table
 CREATE TABLE termin_emitovanja
 (
-    vrijeme_pocetka       TIME(0) NOT NULL,
-    vrijeme_zavrsetka     TIME(0) NOT NULL,
+    vrijeme_pocetka       timestamp NOT NULL,
+    vrijeme_zavrsetka     timestamp NOT NULL,
     datum_emitovanja      DATE           NOT NULL,
     id_epizode VARCHAR(36) NOT NULL,
     FOREIGN KEY (id_epizode) REFERENCES epizoda(id_epizode) ON DELETE CASCADE,
