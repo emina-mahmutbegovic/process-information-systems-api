@@ -17,9 +17,7 @@ CREATE TABLE urednik
     id_urednika              VARCHAR(36) PRIMARY KEY,
     ime_urednika             VARCHAR(50) NOT NULL,
     prezime_urednika         VARCHAR(50) NOT NULL,
-    kontakt_telefon_urednika VARCHAR(50) NOT NULL,
-    CONSTRAINT jedinstven_ime_prezime_telefon_urednik_set
-        UNIQUE (ime_urednika, prezime_urednika, kontakt_telefon_urednika)
+    kontakt_telefon_urednika VARCHAR(50) NOT NULL
 );
 
 CREATE UNIQUE INDEX unique_kontakt_telefon_urednika_column_index ON urednik (kontakt_telefon_urednika);
@@ -31,9 +29,7 @@ CREATE TABLE voditelj
     id_voditelja              VARCHAR(36) PRIMARY KEY,
     ime_voditelja             VARCHAR(50) NOT NULL,
     prezime_voditelja         VARCHAR(50) NOT NULL,
-    kontakt_telefon_voditelja VARCHAR(50) NOT NULL,
-    CONSTRAINT jedinstven_ime_prezime_telefon_voditelj_set
-        UNIQUE (ime_voditelja, prezime_voditelja, kontakt_telefon_voditelja)
+    kontakt_telefon_voditelja VARCHAR(50) NOT NULL
 );
 
 CREATE UNIQUE INDEX unique_kontakt_telefon_voditelja_column_index ON voditelj (kontakt_telefon_voditelja);
@@ -46,9 +42,7 @@ CREATE TABLE gost
     ime_gosta             VARCHAR(50)  NOT NULL,
     prezime_gosta         VARCHAR(50)  NOT NULL,
     biografija_gosta      VARCHAR(500) NOT NULL,
-    kontakt_telefon_gosta VARCHAR(50)  NOT NULL,
-    CONSTRAINT jedinstven_ime_prezime_telefon_gost_set
-        UNIQUE (ime_gosta, prezime_gosta, kontakt_telefon_gosta)
+    kontakt_telefon_gosta VARCHAR(50)  NOT NULL
 );
 
 CREATE UNIQUE INDEX unique_kontakt_telefon_gosta_column_index ON gost (kontakt_telefon_gosta);
