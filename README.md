@@ -188,13 +188,27 @@ docker compose up -d
 This command will create database with all tables and seed database with dummy data provided in `resources/db.liquibase/test-data`
 
 3. Build the application
+
+MAC/Linux users:
 ```bash
 ./gradlew build
 ```
 
+Windows users
+```bash
+gradlew build
+```
+
 4. Run the application
+
+MAC/Linux users:
 ```bash
 ./gradlew bootRun
+```
+
+Windows users:
+```bash
+gradlew bootRun
 ```
 
 The application will be accessible at `http://localhost:8080`.
